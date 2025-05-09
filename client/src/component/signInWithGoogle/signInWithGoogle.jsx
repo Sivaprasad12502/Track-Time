@@ -21,7 +21,7 @@ export default function SignWithGoogle() {
         //.Get Firebase Id token
         const idToken=await user.getIdToken()
         // store in MongoDB via backedn
-        await axios.post(`${APIURL}/api/register`,{
+        await axios.post(`${APIURL}/register`,{
           token:idToken,
           name:user.displayName
         })

@@ -18,7 +18,7 @@ export default function AddProjects() {
         throw new Error('User not logged in')
       }
       const token=await user.getIdToken()
-      await axios.post(`${apiUrl}/api/projects/add`,{
+      await axios.post(`${apiUrl}/projects/add`,{
         projectName:values.projectName,
         clientName:values.clientName,
         description:values.description
