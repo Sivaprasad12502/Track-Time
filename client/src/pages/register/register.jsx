@@ -8,6 +8,7 @@ import { setDoc,doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import axios from 'axios'
 import SignWithGoogle from "../../component/signInWithGoogle/signInWithGoogle";
+const API_URL=process.env.REACT_APP_API_URL
 export default function Register() {
   const { values, handleChange, resetForm } = useFrom({
     name: "",
@@ -28,7 +29,7 @@ export default function Register() {
           name:values.name,
         })
         const idToken=await user.getIdToken()
-        await axios.post("http://localhost:3001/api/register",{
+        await axios.post(`${API_URL}/register`,{
           token:idToken,
           name:values.name
         })

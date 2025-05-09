@@ -4,7 +4,7 @@ import { auth, db } from '../Firebase/firebase'
 import { toast } from 'react-toastify'
 import { doc, setDoc } from 'firebase/firestore'
 import axios from 'axios'
-
+const APIURL=process.env.REACT_APP_API_URL;
 export default function SignWithGoogle() {
 
   function googleLogin(){
@@ -21,7 +21,7 @@ export default function SignWithGoogle() {
         //.Get Firebase Id token
         const idToken=await user.getIdToken()
         // store in MongoDB via backedn
-        await axios.post('http://localhost:3001/api/register',{
+        await axios.post(`${APIURL}/api/register`,{
           token:idToken,
           name:user.displayName
         })

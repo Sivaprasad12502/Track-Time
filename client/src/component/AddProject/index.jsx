@@ -2,7 +2,7 @@ import React from "react";
 import useFrom from "../../hooks/useFrom";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
-
+const apiUrl = process.env.REACT_APP_API_URL;
 export default function AddProjects() {
   const { values, handleChange, resetForm } = useFrom({
     projectName: "",
@@ -18,7 +18,7 @@ export default function AddProjects() {
         throw new Error('User not logged in')
       }
       const token=await user.getIdToken()
-      await axios.post("http://localhost:3001/api/projects/add",{
+      await axios.post(`${apiUrl}/api/projects/add`,{
         projectName:values.projectName,
         clientName:values.clientName,
         description:values.description
