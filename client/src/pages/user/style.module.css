@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.innerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: rgba(5, 7, 10, 1);
+}
+.innerContainer > div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  list-style-type: none;
+  padding: 10px;
+}
+.innerContainer .childContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  height: 100px;
+  background-color: rgb(11, 14, 20);
+  border: 1px solid hsla(220, 20%, 25%, 0.6);
+  color: hsl(0, 0%, 100%);
+  padding: 16px;
+  font-size: 1.2rem;
+  gap: 5px;
+}

@@ -1,0 +1,57 @@
+
+.wrapper {
+  
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  height: 100vh;
+
+  gap: 4rem;
+}
+.wrapperContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    height: 100vh;
+    text-align: center;
+    background-color: rgb(11, 14, 20);
+    padding: 16px;
+}
+.wrapper h3 {
+  margin: 0px;
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  line-height: 1.5;
+  width: 100%;
+  font-size: 15px;
+  color: white;
+}
+.wrapper form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.wrapper button {
+  background-color: rgb(245, 246, 250);
+  color: black;
+  outline: none;
+  padding: 5px;
+  outline: none;
+  border-radius: 5px;
+  width: 100%;
+}
+.wrapper input {
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid hsla(220, 20%, 25%, 0.6);
+  background-color: hsl(220, 35%, 3%);
+}
+.wrapper input::placeholder {
+  font-size: 10px;
+}
+.wrapper span {
+  font-size: 12px;
+  color: white;
+}

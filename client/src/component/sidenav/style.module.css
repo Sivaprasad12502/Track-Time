@@ -1,0 +1,42 @@
+.Container {
+  position: relative;
+}
+.Container ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  position: relative;
+  left: -250px;
+  position: fixed;
+  text-align: center;
+
+
+  height: 100vh;
+}
+.Container li {
+  padding: 20px;
+}
+.Container li:hover {
+  background-color: black;
+  color: white;
+}
+.Container ul.active {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  z-index: 100;
+  background-color: #fff;
+  color: black;
+  transition: background-color, left 0.3s ease-in;
+}
+
+.Container button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  font-size: 20px;
+}
