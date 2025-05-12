@@ -78,7 +78,7 @@ export default function AddProjects() {
       navigate('/projects')
     },
     onError:(error)=>{
-      console.error("Error adding projects",error.message)
+      console.error("Error updating projects",error.message)
     }
   })
   
@@ -86,7 +86,13 @@ export default function AddProjects() {
   async function handleSubmit(e) {
     e.preventDefault();
     console.log("Submitting form..");
-    isEdit?updateProjectMutation.mutate():mutation.mutate()
+    if (isEdit) {
+    console.log("Updating project...");
+    updateProjectMutation.mutate();
+  } else {
+    console.log("Adding project...");
+    mutation.mutate();
+  }
     // try{
     //   const auth=getAuth()
     //   const user=auth.currentUser
@@ -122,7 +128,7 @@ export default function AddProjects() {
       });
     }
   }, []);
-  const {isPending} = mutation.isPending||updateProjectMutation.isPending
+  const isPending = mutation.isPending||updateProjectMutation.isPending
   return (
     <div>
       <form onSubmit={handleSubmit}>

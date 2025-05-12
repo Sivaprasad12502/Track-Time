@@ -53,11 +53,28 @@ const updateProject = async (req, res) => {
   const id = req.params.id;
   const currentDate = new Date();
   const { projectName, clientName, description } = req.body;
-  let currentProjectToUpdate = await Project.findByIdAndUpdate(id, {
-    projectName,
-    clientName,
-    description,
-    date: currentDate,
-  });
+  let currentProjectToUpdate;
+  try {
+    currentProjectToUpdate = await Project.findByIdAndUpdate(id, {
+      projectName,
+      clientName,
+      description,
+      date: currentDate,
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      message: "Somthing went wrong whilte updating !Please try again",
+    });
+  }
+  if(!currentProjectToUpdate){
+    return res.status(500).json({message:'ubable to update'})
+  }
+  return res.status(200).json({currentProjectToUpdate})
 };
-module.exports = { fetchListOfProjects, addNewProject,updateProject, deleteProjects };
+module.exports = {
+  fetchListOfProjects,
+  addNewProject,
+  updateProject,
+  deleteProjects,
+};
