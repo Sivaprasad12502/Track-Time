@@ -14,24 +14,29 @@ export default function Login() {
     password: "",
     email: "",
   });
-
-  const  handleSubmit=async (e)=>{
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-      await signInWithEmailAndPassword(auth,values.email,values.password)
-      console.log("User logged in Successfully")
-      window.location.href="/user"
-      toast.success("user logged in Successfully",{
-        position:'top-center'
-      })
-    }catch(e){
+    try {
+      setLoading(true);
+      await signInWithEmailAndPassword(auth, values.email, values.password);
+
+      console.log("User logged in Successfully");
+      window.location.href = "/user";
+      toast.success("user logged in Successfully", {
+        position: "top-center",
+      });
+    } catch (e) {
       console.log(e.message);
-      toast.error(e.message,{
-        position:"bottom-center"
-      })
-      
+      toast.error(e.message, {
+        position: "bottom-center",
+      });
+    } finally {
+      setLoading(false);
     }
-    
+  };
+  if (loading) {
+    return <h1>loading...please wait!!!</h1>;
   }
   return (
     <div className={classes.wrapper}>
@@ -60,7 +65,7 @@ export default function Login() {
             onChange={handleChange}
           />
           <button type="submit">sign in</button>
-          <SignWithGoogle/>
+          <SignWithGoogle />
         </form>
       </div>
       {/* <div>

@@ -3,50 +3,62 @@ import classes from "./style.module.css";
 import { Link } from "react-router-dom";
 import useFrom from "../../hooks/useFrom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth ,db} from "../../component/Firebase/firebase";
-import { setDoc,doc } from "firebase/firestore";
+import { auth, db } from "../../component/Firebase/firebase";
+import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
-import axios from 'axios'
+import axios from "axios";
 import SignWithGoogle from "../../component/signInWithGoogle/signInWithGoogle";
-const API_URL=process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL;
 export default function Register() {
   const { values, handleChange, resetForm } = useFrom({
     name: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-     const userCred= await createUserWithEmailAndPassword(auth, values.email, values.password);
+      setLoading(true);
+      const userCred = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
       // const user=auth.currentUser
-      const user=userCred.user
-      console.log(user)
-      if(user){
+      const user = userCred.user;
+      console.log(user);
+      if (user) {
+        setLoading(false);
         //2.Store i Firestore
-        await setDoc(doc(db,'Users',user.uid),{
-          email:user.email,
-          name:values.name,
-        })
-        const idToken=await user.getIdToken()
-        await axios.post(`${API_URL}/register`,{
-          token:idToken,
-          name:values.name
-        })
+        await setDoc(doc(db, "Users", user.uid), {
+          email: user.email,
+          name: values.name,
+        });
+        const idToken = await user.getIdToken();
+        await axios.post(`${API_URL}/register`, {
+          token: idToken,
+          name: values.name,
+        });
       }
-      console.log('User Registared Successuflly')
-      toast.success("User Registered Sucessusfully",{
-        position:"top-center"
-      })
-      window.location.href='/user'
+      console.log("User Registared Successuflly");
+      toast.success("User Registered Sucessusfully", {
+        position: "top-center",
+      });
+
+      window.location.href = "/user";
     } catch (e) {
+      setLoading(false)
       console.log(e.message);
-      toast.error(e.message,{
-        position:"bottom-center"
-      })
+      toast.error(e.message, {
+        position: "bottom-center",
+      });
     }
     // resetForm();
   };
+  if (loading) {
+    return <h1>Loading.....</h1>;
+  }
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperContainer}>
@@ -74,7 +86,7 @@ export default function Register() {
             onChange={handleChange}
           />
           <button type="submit">sumbit</button>
-          <SignWithGoogle/>
+          <SignWithGoogle />
         </form>
         <div>
           <span>Already have account?</span>{" "}

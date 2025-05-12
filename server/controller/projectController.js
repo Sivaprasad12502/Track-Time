@@ -31,4 +31,22 @@ const addNewProject = async (req, res) => {
     return res.status(500).json({ message: "Failed to create project" });
   }
 };
-module.exports = { fetchListOfProjects, addNewProject };
+const deleteProjects=async(req,res)=>{
+  const id=req.params.id;
+ 
+
+  try{
+    const findCurrenProject=await Project.findByIdAndDelete(id);
+    console.log(findCurrenProject)
+    if(!findCurrenProject){
+      console.log("Project not found in db.",id)
+      return res.status(404).json({message:'Project is not found'})
+    }
+    return res.status(200).json({message:'Successfully deleted'})
+
+  }catch(e){
+    console.log("error deleting",e)
+    return res.status(500).json({message:"unable to delete!Please try again"})
+  }
+}
+module.exports = { fetchListOfProjects, addNewProject,deleteProjects };
