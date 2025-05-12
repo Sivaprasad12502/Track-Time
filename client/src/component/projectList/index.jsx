@@ -75,7 +75,7 @@ export default function ProjectList() {
   return (
     <div>
       <div className="flex  flex-col gap-4 p-2 text-center ">
-        {data.length == 0 ? (
+        {data?.length == 0 ? (
           <h1>no bolges added</h1>
         ) : (
           data.map((projectItem) => (
