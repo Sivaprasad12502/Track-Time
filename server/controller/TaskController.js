@@ -29,6 +29,21 @@ const addNewTask = async (req, res) => {
     return res.status(500).json({ message: "Failed to create message" });
   }
 };
+const completeTask=async(req,res)=>{
+  try{
+    const taskId=req.params.id
+    const task= Task.findById(taskId)
+    if(!task) return res.status(404).send("Task not found")
+    
+    task.completed=!task.completed
+    await task.save()
+    res.status(200).json(task)
+
+  }catch(e){
+    console.log(e.message)
+    res.status(500).json({message:"error in completing"})
+  }
+}
 const deleteTaks = async (req, res) => {
   const id = req.params.id;
   try {
@@ -42,4 +57,4 @@ const deleteTaks = async (req, res) => {
     return res.status(500).json({ message: "unable to delelte" });
   }
 };
-module.exports = { fetchTasks, addNewTask, deleteTaks };
+module.exports = { fetchTasks, addNewTask, deleteTaks,completeTask };

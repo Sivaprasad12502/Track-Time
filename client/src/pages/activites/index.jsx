@@ -5,7 +5,7 @@ import Tasks from '../../component/tasks'
 export default function DailyActivities() {
   return (
     <div>
-      <TimeEnter/>
+      {/* <TimeEnter/> */}
       <Tasks/>
     </div>
   )
