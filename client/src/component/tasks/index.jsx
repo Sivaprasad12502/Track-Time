@@ -69,18 +69,15 @@ export default function Tasks() {
     e.preventDefault();
     addTasks.mutate();
   }
-  if (isLoading) {
-    return <h1>Please wait Loadingg</h1>;
-  }
-  async function  Taskcompleted (currentItem) {
-    const addTask=useMutation({
-      mutationFn:async ()=>{
+ 
+    const completeTask=useMutation({
+      mutationFn:async (currentItem)=>{
         const auth=getAuth()
         const user=auth.currentUser
         if(!user){
           console.log('user is not logged')
         }
-        const token=user.getIdToken()
+        const token= await user.getIdToken()
         axios.put(`${API_URL}/activities/toggle-complete/${currentItem._id}`,null,{
           headers:{
             Authorization:`Bearer ${token}`
@@ -96,8 +93,11 @@ export default function Tasks() {
         console.error(error ,'error in complete')
       }
     })
+   if (isLoading) {
+    return <h1>Please wait Loadingg</h1>;
   }
-  console.log(completed);
+  
+  
   return (
     <div className="flex flex-col gap-4 text-center ">
       <h3 className="text-xl font-bold">Enter Your Daily Tasks</h3>
@@ -134,7 +134,7 @@ export default function Tasks() {
               <div className="flex gap-2">
                 <button
                   className="border border-green-500 p-1"
-                  onClick={() => Taskcompleted(taskItem)}
+                  onClick={() => completeTask.mutate(taskItem)}
                 >
                   {taskItem.completed ? (
                     <MdCheckBox />
