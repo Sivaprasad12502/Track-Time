@@ -44,7 +44,7 @@ export default function Tasks() {
         throw new Error("Useer is not logged in");
       }
       const token = await user.getIdToken();
-      await axios.post(`${API_URL}/actvities/add`, values, {
+      await axios.post(`${API_URL}/activities/add`, values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,15 +86,15 @@ export default function Tasks() {
         <button type="submit">ADD Tasks</button>
       </form>
       <div>
-        {data?.length == 0 ? (
+        {/* {data?.length == 0 ? (
           <h1>no taks added</h1>
         ) : (
-          data?.map((taskItem) => (
+          data.map((taskItem) => (
             <div>
-              <h1>{data.task}</h1>
+              <h1>{taskItem.task}</h1>
             </div>
           ))
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -11,14 +11,14 @@ const fetchTasks = async (req, res) => {
   if (!currenTasks) {
     return res.status(404).json({ message: "message is not found" });
   }
-  return res.status(200).json({ currenTasks });
+  return res.status(200).json( currenTasks );
 };
 const addNewTask = async (req, res) => {
-  const { task, userId, Day } = req.body;
+  const { task, userId, } = req.body;
   let currentDate = new Date();
   const newTasks = new Task({
     task,
-    Date: currentDate,
+    Day: currentDate,
     userId: req.user.uid,
   });
   try {
