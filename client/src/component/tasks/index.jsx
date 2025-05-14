@@ -64,7 +64,7 @@ export default function Tasks() {
       console.error("Error adding tasks:", error.message);
     },
   });
-
+  
   function handleSubmit(e) {
     e.preventDefault();
     addTasks.mutate();
@@ -75,7 +75,7 @@ export default function Tasks() {
         const auth=getAuth()
         const user=auth.currentUser
         if(!user){
-          console.log('user is not logged')
+          throw new Error('user is not logged')
         }
         const token= await user.getIdToken()
         axios.put(`${API_URL}/activities/toggle-complete/${currentItem._id}`,null,{
@@ -91,6 +91,29 @@ export default function Tasks() {
         console.log('completed')
       },onError:(error)=>{
         console.error(error ,'error in complete')
+      }
+    })
+    const deleteTask=useMutation({
+      mutationFn:async (taskId) => {
+        const auth=getAuth()
+        const user=auth.currentUser
+        if(!user){
+          throw new Error ('user is not logged in')
+        }
+        const token=await user.getIdToken()
+        axios.delete(`${API_URL}/activities/delete/${taskId}`,{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        })
+        
+      },onSuccess:()=>{
+        query.invalidateQueries({
+          queryKey:["tasks"]
+        })
+        console.log('Task deleted')
+      },onError:(error)=>{
+        console.error(error.message)
       }
     })
    if (isLoading) {
@@ -142,7 +165,7 @@ export default function Tasks() {
                     <MdCheckBoxOutlineBlank />
                   )}
                 </button>
-                <button className="border border-red-500 p-1">
+                <button className="border border-red-500 p-1" onClick={deleteTask.mutate(taskItem._id)}>
                   <FaTrash className="text-red-500" />
                 </button>
               </div>
