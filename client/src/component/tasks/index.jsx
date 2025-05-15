@@ -10,14 +10,16 @@ import { FaTrash } from "react-icons/fa";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
+
 const API_URL = process.env.REACT_APP_API_URL;
 export default function Tasks() {
   const query = useQueryClient();
- 
+  
   const { values, handleChange, resetForm } = useFrom({ task: "" });
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["tasks"],
+   
     queryFn: async () => {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -32,12 +34,13 @@ export default function Tasks() {
       });
       return response.data;
     },
-    onError: (error) => {
-      console.log(error);
-    },
     onSuccess: () => {
       console.log(data);
     },
+    onError: (error) => {
+      console.log(error);
+    },
+    
   });
   const addTasks = useMutation({
     mutationFn: async () => {
@@ -64,63 +67,68 @@ export default function Tasks() {
       console.error("Error adding tasks:", error.message);
     },
   });
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     addTasks.mutate();
   }
- 
-    const completeTask=useMutation({
-      mutationFn:async (currentItem)=>{
-        const auth=getAuth()
-        const user=auth.currentUser
-        if(!user){
-          throw new Error('user is not logged')
-        }
-        const token= await user.getIdToken()
-        axios.put(`${API_URL}/activities/toggle-complete/${currentItem._id}`,null,{
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
-        })
-      },onSuccess:()=>{
-        query.invalidateQueries({
-          queryKey:['tasks']
-          
-        })
-        console.log('completed')
-      },onError:(error)=>{
-        console.error(error ,'error in complete')
+
+  const completeTask = useMutation({
+    mutationFn: async (currentItem) => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error("user is not logged");
       }
-    })
-    const deleteTask=useMutation({
-      mutationFn:async (taskId) => {
-        const auth=getAuth()
-        const user=auth.currentUser
-        if(!user){
-          throw new Error ('user is not logged in')
+      const token = await user.getIdToken();
+      await axios.put(
+        `${API_URL}/activities/toggle-complete/${currentItem._id}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        const token=await user.getIdToken()
-        axios.delete(`${API_URL}/activities/delete/${taskId}`,{
-          headers:{
-            Authorization:`Bearer ${token}`
-          }
-        })
-        
-      },onSuccess:()=>{
-        query.invalidateQueries({
-          queryKey:["tasks"]
-        })
-        console.log('Task deleted')
-      },onError:(error)=>{
-        console.error(error.message)
+      );
+    },
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+      console.log("completed");
+    },
+    onError: (error) => {
+      console.error(error, "error in complete");
+    },
+  });
+  const deleteTask = useMutation({
+    mutationFn: async (taskId) => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error("user is not logged in");
       }
-    })
-   if (isLoading) {
+      const token = await user.getIdToken();
+      await axios.delete(`${API_URL}/activities/delete/${taskId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    },
+    onSuccess: () => {
+      query.invalidateQueries({
+        queryKey: ["tasks"],
+      });
+      console.log("Task deleted");
+    },
+    onError: (error) => {
+      console.error(error.message);
+    },
+  });
+  if (isLoading) {
     return <h1>Please wait Loadingg</h1>;
   }
-  
-  
+
   return (
     <div className="flex flex-col gap-4 text-center ">
       <h3 className="text-xl font-bold">Enter Your Daily Tasks</h3>
@@ -148,9 +156,7 @@ export default function Tasks() {
             <div
               key={taskItem._id}
               className={`border rounded-sm border-black text-center  flex items-center justify-between gap-2 p-3 ${
-                taskItem.completed
-                  ? "border-green-500 line-through"
-                  : ""
+                taskItem.completed ? "border-green-500 line-through" : ""
               }`}
             >
               <h1>{taskItem.task}</h1>
@@ -165,7 +171,10 @@ export default function Tasks() {
                     <MdCheckBoxOutlineBlank />
                   )}
                 </button>
-                <button className="border border-red-500 p-1" onClick={deleteTask.mutate(taskItem._id)}>
+                <button
+                  className="border border-red-500 p-1"
+                  onClick={() => deleteTask.mutate(taskItem._id)}
+                >
                   <FaTrash className="text-red-500" />
                 </button>
               </div>
