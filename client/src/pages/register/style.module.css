@@ -1,57 +1,119 @@
 
-.wrapper {
-  
+.wrapperContainer {
   display: flex;
   flex-direction: column;
-
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
   height: 100vh;
+  text-align: center;
+  background-color: #F0EDFF;
+  padding: 1rem;
+  font-family: 'Inter', sans-serif;
+}
 
-  gap: 4rem;
-}
-.wrapperContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content:space-evenly;
-    height: 100vh;
-    text-align: center;
-    background-color: rgb(11, 14, 20);
-    padding: 16px;
-}
-.wrapper h3 {
-  margin: 0px;
-  font-family: Inter, sans-serif;
-  font-weight: 600;
-  line-height: 1.5;
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
   width: 100%;
-  font-size: 15px;
-  color: white;
+  
 }
+
+.wrapper h3 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+  color: #0b0e14;
+}
+
 .wrapper form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-.wrapper button {
-  background-color: rgb(245, 246, 250);
-  color: black;
-  outline: none;
-  padding: 5px;
-  outline: none;
-  border-radius: 5px;
   width: 100%;
 }
+
+.wrapper label {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-align: left;
+  color: #0b0e14;
+}
+
 .wrapper input {
-  color: white;
-  padding: 5px;
-  border-radius: 5px;
-  border: 1px solid hsla(220, 20%, 25%, 0.6);
-  background-color: hsl(220, 35%, 3%);
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #f3f0ff;
+  color: #0b0e14;
+  outline: none;
+  transition: border 0.2s ease;
+  border: 1px solid #19bdff;
 }
+
+.wrapper input:focus {
+  border-color: #9181F4;
+  box-shadow: 0 0 0 2px rgba(145, 129, 244, 0.2);
+}
+
 .wrapper input::placeholder {
-  font-size: 10px;
+  font-size: 12px;
+  color: #999;
 }
+
+.wrapper button {
+  background: #0b0e14;
+  color: #FFFFFF;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(145, 129, 244, 0.3);
+}
+
+.wrapper button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(145, 129, 244, 0.4);
+}
+
 .wrapper span {
   font-size: 12px;
-  color: white;
+  color: #0b0e14;
+}
+
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .wrapperContainer {
+    border-radius: 1rem;
+    padding: 4rem;
+  }
+}
+
+
+@media screen and (min-width: 1024px) {
+  .wrapperContainer {
+    max-width: 700px;
+    margin: auto;
+    padding: 4rem 6rem;
+  }
+
+  .wrapper h3 {
+    font-size: 24px;
+  }
+
+  .wrapper button {
+    font-size: 16px;
+  }
 }

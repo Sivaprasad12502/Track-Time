@@ -64,6 +64,9 @@ export default function Register() {
       <div className={classes.wrapperContainer}>
         <h3>Create Your Account</h3>
         <form onSubmit={handleRegister}>
+          <label htmlFor="">
+            Name
+          </label>
           <input
             type="text"
             placeholder="Enter name"
@@ -71,6 +74,9 @@ export default function Register() {
             name="name"
             value={values.name}
           />
+          <label htmlFor="">
+            Email
+          </label>
           <input
             type="email"
             placeholder="Enter Email"
@@ -78,6 +84,9 @@ export default function Register() {
             value={values.email}
             onChange={handleChange}
           />
+          <label htmlFor="">
+            password
+          </label>
           <input
             type="password"
             placeholder="Enter password"

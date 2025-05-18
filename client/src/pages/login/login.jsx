@@ -43,6 +43,9 @@ export default function Login() {
       <div className={classes.wrapperContainer}>
         <h3>Login To Your Account</h3>
         <form onSubmit={handleSubmit}>
+          <label htmlFor="">
+            Name
+          </label>
           <input
             type="text"
             placeholder="Enter name"
@@ -50,6 +53,9 @@ export default function Login() {
             name="name"
             value={values.name}
           />
+          <label htmlFor="">
+            Email
+          </label>
           <input
             type="email"
             placeholder="Enter Email"
@@ -57,6 +63,9 @@ export default function Login() {
             value={values.email}
             onChange={handleChange}
           />
+          <label htmlFor="">
+            password
+          </label>
           <input
             type="password"
             placeholder="Enter password"

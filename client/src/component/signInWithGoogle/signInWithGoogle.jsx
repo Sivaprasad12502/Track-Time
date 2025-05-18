@@ -20,7 +20,7 @@ export default function SignWithGoogle() {
         })
         //.Get Firebase Id token
         const idToken=await user.getIdToken()
-        // store in MongoDB via backedn
+        // store in MongoDB via backend
         await axios.post(`${APIURL}/register`,{
           token:idToken,
           name:user.displayName
@@ -34,10 +34,10 @@ export default function SignWithGoogle() {
     })
   }
   return (
-    <div className='text-white'>
+    <div className='text-black'>
         <p>Or continue with--</p>
-        <div className='flex items-center justify-center' onClick={googleLogin}>
-          <img src={require("../../assets/google.png")} width={"60%"}/>
+        <div className='flex items-center justify-center p-1' onClick={googleLogin}>
+          <img src={require("../../assets/google 1@2x.png")} width={"20px"}/>
         </div>
     </div>
   )

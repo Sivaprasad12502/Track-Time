@@ -41,35 +41,36 @@ export default function User() {
     fetchUserData();
   }, []);
   return (
-    <div className={classes.maincontainer}>
-      <div className={classes.container}>
+    <div className="flex flex-col bg-[#F0EDFF] ">
+      <div className="flex justify-between items-center bg-white shadow-md px-6 py-3 rounded-b-md">
+        {/* Sidenav or logo area */}
         <div>
           <Sidenav />
         </div>
-        <div className="flex items-center gap-0.5">
-          <span>
-            <FaUser />
-          </span>
-          <span className="text-xs">{userDetails?.name}</span>
+
+        {/* User Info */}
+        <div className="flex items-center gap-2 text-sm text-gray-700 font-medium">
+          <FaUser className="text-[#19bdff]" />
+          <span>{userDetails?.name}</span>
         </div>
       </div>
-      <div className={classes.innerContainer}>
-        <div>
-          <div className={classes.childContainer}>
-            <FaProjectDiagram />
-            <Link to={"/projects"}> projects</Link>
+      <div className="gird place-content-center h-screen w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">
+        <div className="grid grid-cols-2 place-items-center gap-3 h-1/4 sm:h-1/2">
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full border border-[#19bdff]">
+            <FaProjectDiagram size={30} className="fill-[black] " />
+            <Link to={"/projects"}> Projects</Link>
           </div>
-          <div className={classes.childContainer}>
-            <FaTachometerAlt />
-            <Link to={"/timesheet"}>timsheet</Link>
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full h-full border border-[#19bdff]">
+            <FaTachometerAlt size={30} className="fill-[black]" />
+            <Link to={"/timesheet"}>Timesheet</Link>
           </div>
-          <div className={classes.childContainer}>
-            {" "}
-            <FaRegCircleCheck />
-            <Link to={"/activities"}>activity</Link>
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[3px] w-full  h-full border border-[#19bdff]">
+            <FaRegCircleCheck size={30} className="fill-[black]" />
+            <Link to={"/activities"}>Activities</Link>
           </div>
-          <div className={classes.childContainer}>
-            <GiMuscleUp /> <Link to={"/performance"}>performance</Link>
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md   hover:translate-y-[3px] w-full  h-full border border-[#19bdff]">
+            <GiMuscleUp size={30} className="fill-[black]" />{" "}
+            <Link to={"/performance"}>Performance</Link>
           </div>
         </div>
       </div>
