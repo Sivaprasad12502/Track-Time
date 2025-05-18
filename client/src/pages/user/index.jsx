@@ -41,8 +41,8 @@ export default function User() {
     fetchUserData();
   }, []);
   return (
-    <div className="flex flex-col bg-[#F0EDFF] ">
-      <div className="flex justify-between items-center bg-white shadow-md px-6 py-3 rounded-b-md">
+    <div className="flex flex-col ">
+      <div className="flex justify-between items-center bg-white shadow-md px-6 py-3 rounded-b-md border-b-[3px] border-[black]">
         {/* Sidenav or logo area */}
         <div>
           <Sidenav />
@@ -50,27 +50,35 @@ export default function User() {
 
         {/* User Info */}
         <div className="flex items-center gap-2 text-sm text-gray-700 font-medium">
-          <FaUser className="text-[#19bdff]" />
+          <FaUser className="text-[#C1FF72]" />
           <span>{userDetails?.name}</span>
         </div>
       </div>
       <div className="gird place-content-center h-screen w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">
         <div className="grid grid-cols-2 place-items-center gap-3 h-1/4 sm:h-1/2">
-          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full border border-[#19bdff]">
-            <FaProjectDiagram size={30} className="fill-[black] " />
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[black] bg-[#E5E5E5] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black]">
+            <div className="flex items-center rounded-sm bg-[#C1FF72]">
+              <FaProjectDiagram size={30} className="fill-[black] " />
             <Link to={"/projects"}> Projects</Link>
+            </div>
           </div>
-          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full h-full border border-[#19bdff]">
-            <FaTachometerAlt size={30} className="fill-[black]" />
-            <Link to={"/timesheet"}>Timesheet</Link>
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#C1FF72] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full h-full border-b-[3px] border-[black]">
+            <div className="flex items-center bg-white rounded-sm">
+              <FaTachometerAlt size={30} className="fill-[black]" />
+              <Link to={"/timesheet"}>Timesheet</Link>
+            </div>
           </div>
-          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[3px] w-full  h-full border border-[#19bdff]">
-            <FaRegCircleCheck size={30} className="fill-[black]" />
-            <Link to={"/activities"}>Activities</Link>
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#0b0e14] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[3px] w-full  h-full  border-b-[3px] border-[black]">
+            <div className="flex items-center bg-white rounded-sm">
+              <FaRegCircleCheck size={30} className="fill-[black]" />
+              <Link to={"/activities"}>Activities</Link>
+            </div>
           </div>
-          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#EAEAEA] rounded-md   hover:translate-y-[3px] w-full  h-full border border-[#19bdff]">
-            <GiMuscleUp size={30} className="fill-[black]" />{" "}
+          <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[black] bg-[#E5E5E5] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[3px] w-full  h-full   border-b-[3px] border-[black]">
+            <div className="flex items-center bg-[#C1FF72] rounded-sm">
+              <GiMuscleUp size={30} className="fill-[black]" />{" "}
             <Link to={"/performance"}>Performance</Link>
+            </div>
           </div>
         </div>
       </div>
