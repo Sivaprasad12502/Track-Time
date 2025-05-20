@@ -73,14 +73,14 @@ export default function ProjectList() {
   }
   return (
     <div>
-      <div className="flex  flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
+      <div className="flex bg-[#e5e5e5] flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
         {data?.length == 0 ? (
           <h1>no bolges added</h1>
         ) : (
           data.map((projectItem) => (
             <div
               key={projectItem._id}
-              className="flex flex-col drop-shadow-shadowBox   gap-1 p-4  text-[black] bg-[#fff] transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black]"
+              className="flex flex-col drop-shadow-shadowBox   gap-1 p-4  text-[black] bg-[#fff] rounded-[20px] transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black] border"
             >
               <div className="bg-white flex flex-col gap-2 rounded-md p-2 justify-between h-full">
                 <div className="flex gap-2 break-words w-full ">
@@ -98,10 +98,10 @@ export default function ProjectList() {
                   <span>{projectItem?.description}</span>
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex items-center bg-[#c1ff72] w-fit">
                   <FaEdit size={30} onClick={() => handleEdit(projectItem)} />
                   <FaTrash
-                    className="fill-red-600"
+                    
                     size={30}
                     onClick={() => deleteProjects.mutate(projectItem._id)}
                   />
