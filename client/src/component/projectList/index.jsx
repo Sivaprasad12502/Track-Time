@@ -8,12 +8,12 @@ import axios from "axios";
 import { getAuth } from "firebase/auth";
 import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 const API_URL = process.env.REACT_APP_API_URL;
 console.log("API_URL is:", API_URL);
 export default function ProjectList() {
   const queryClient = useQueryClient();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const fetchProjects = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -69,30 +69,44 @@ export default function ProjectList() {
     console.log(data);
   }
   function handleEdit(getcurrentProject) {
-   
-    navigate('/projects/AddProjects',{state:{getcurrentProject}})
+    navigate("/projects/AddProjects", { state: { getcurrentProject } });
   }
   return (
     <div>
-      <div className="flex  flex-col gap-4 p-2 text-center ">
+      <div className="flex  flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
         {data?.length == 0 ? (
           <h1>no bolges added</h1>
         ) : (
           data.map((projectItem) => (
             <div
               key={projectItem._id}
-              className="flex flex-col border border-red-500"
+              className="flex flex-col drop-shadow-shadowBox   gap-1 p-4  text-[black] bg-[#fff] transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black]"
             >
-              <span>{projectItem?._id}</span>
-              <span>{projectItem?.clientName}</span>
-              <span>{projectItem?.projectName}</span>
-              <span>{projectItem?.description}</span>
+              <div className="bg-white flex flex-col gap-2 rounded-md p-2 justify-between h-full">
+                <div className="flex gap-2 break-words w-full ">
+                  {" "}
+                  <span className="font-bold">ClientName:</span>{" "}
+                  <span className="uppercase break-words w-full">{projectItem?.clientName}</span>{" "}
+                </div>
+                <div className="flex gap-2 break-words w-full">
+                  {" "}
+                  <span className="font-bold">ProjectName:</span>{" "}
+                  <span className="uppercase">{projectItem?.projectName}</span>{" "}
+                </div>
+                <div className="flex flex-col break-words w-full ">
+                  <span className="font-bold underline">About the Project</span>{" "}
+                  <span>{projectItem?.description}</span>
+                </div>
 
-              <FaEdit size={30} onClick={() => handleEdit(projectItem)} />
-              <FaTrash
-                size={30}
-                onClick={() => deleteProjects.mutate(projectItem._id)}
-              />
+                <div className="flex items-center">
+                  <FaEdit size={30} onClick={() => handleEdit(projectItem)} />
+                  <FaTrash
+                    className="fill-red-600"
+                    size={30}
+                    onClick={() => deleteProjects.mutate(projectItem._id)}
+                  />
+                </div>
+              </div>
             </div>
           ))
         )}
