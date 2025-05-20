@@ -134,7 +134,7 @@ export default function Tasks() {
       <h3 className="text-xl font-bold">Enter Your Daily Tasks</h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-3">
         <input
-          className={`border rounded-sm border-black text-center`}
+          className={` rounded-md bg-gray text-center p-2`}
           type="text"
           placeholder="enter here "
           name="task"
@@ -143,9 +143,9 @@ export default function Tasks() {
         />
         <button
           type="submit"
-          className="bg-black text-white   border rounded-md border-black text-center"
+          className="text-[#c1ff72] font-bold border bg-[black]  rounded-md p-1"
         >
-          {addTasks.isPending ? "adding" : "addTasks"}
+          {addTasks.isPending ? "Adding..." : "Add"}
         </button>
       </form>
       <div className=" flex flex-col gap-2 p-3">
@@ -155,8 +155,8 @@ export default function Tasks() {
           data.map((taskItem) => (
             <div
               key={taskItem._id}
-              className={`border rounded-sm border-black text-center  flex items-center justify-between gap-2 p-3 ${
-                taskItem.completed ? "border-green-500 line-through" : ""
+              className={`rounded-md bg-gray text-center   flex items-center justify-between gap-2 p-3 border-b-[2px] border-[black] ${
+                taskItem.completed ? "bg-neonGreen line-through" : ""
               }`}
             >
               <h1>{taskItem.task}</h1>

@@ -5,7 +5,7 @@ import { getAuth } from "firebase/auth";
 import axios from "axios";
 const API_URL = process.env.REACT_APP_API_URL;
 export default function TimeEnter() {
-  const queryClient=useQueryClient()
+  const queryClient = useQueryClient();
   const { values, handleChange, resetForm } = useFrom({
     startTime: "",
     endTime: "",
@@ -94,7 +94,7 @@ export default function TimeEnter() {
       });
     },
     onSuccess: () => {
-       queryClient.invalidateQueries({ queryKey: ["workEntries"] });
+      queryClient.invalidateQueries({ queryKey: ["workEntries"] });
       console.log("sussessfully added");
     },
     onError: (error) => {
@@ -102,40 +102,39 @@ export default function TimeEnter() {
     },
   });
   return (
-    <div className="h-screen flex items-center justify-center flex-col text-center bg-[rgba(5,7,10)] text-white gap-4">
-      <h1>Enter Your Work time</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-4 border border-[hsla(220,20%,25%,0.6)] p-3 rounded-sm"
-      >
+    <div className="flex flex-col gap-2 p-2 ">
+      <h1 className="font-bold text-center">Enter Your Work time</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col p-2">
         <div className="flex flex-col gap-3 p-2">
-          <h2>Enter your work starting time</h2>
+          <h2 className="bg-black text-[#c1ff72] p-1 rounded-sm">Enter your work starting time</h2>
           <input
             type="time"
             placeholder="Enter time"
             name="startTime"
             value={values.startTime}
             onChange={handleChange}
-            className="rounded-sm text-black"
+            className="bg-white drop-shadow-shadowBox w-full p-2 rounded-md"
           />
         </div>
         <div className="flex flex-col gap-3 p-2">
-          <h2>Enter your work ending time</h2>
+          <h2 className="bg-black text-[#c1ff72] p-1 rounded-sm">Enter your work ending time</h2>
           <input
             type="time"
             placeholder="Enter time "
             name="endTime"
             value={values.endTime}
             onChange={handleChange}
-            className="rounded-sm text-black"
+            className="bg-white drop-shadow-shadowBox w-full p-2 rounded-md"
           />
         </div>
-        <button
-          type="submit"
-          className="bg-white text-black p-1 rounded-sm w-full"
-        >
-          submit
-        </button>
+        <div className="flex justify-center w-full">
+          <button
+            type="submit"
+            className="text-[#c1ff72] font-bold border bg-[black]  rounded-md p-1"
+          >
+            submit
+          </button>
+        </div>
       </form>
     </div>
   );

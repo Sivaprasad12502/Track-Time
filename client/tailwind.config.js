@@ -10,6 +10,10 @@ module.exports = {
       },
       dropShadow:{
         'shadowBox':'0 4px 6px rgba(0,0,0,0.5)'
+      },
+      colors:{
+        neonGreen:'#C1FF72',
+        gray:"#E5E5E5",
       }
     },
   },
