@@ -4,7 +4,7 @@ import Tasks from '../../component/tasks'
 
 export default function DailyActivities() {
   return (
-    <div className='md:max-w-[768px] md:mx-auto px-12'>
+    <div className='md:max-w-[768px] md:mx-auto md:px-12'>
       <TimeEnter/>
       <Tasks/>
     </div>

@@ -9,6 +9,7 @@ import { getAuth } from "firebase/auth";
 import React from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { BarLoader, ClipLoader } from "react-spinners";
 const API_URL = process.env.REACT_APP_API_URL;
 console.log("API_URL is:", API_URL);
 export default function ProjectList() {
@@ -59,7 +60,11 @@ export default function ProjectList() {
   });
 
   if (isLoading) {
-    return <h1>Loading...please wait!!</h1>;
+    return (
+      <div className=" flex  items-center justify-center bg-gray">
+        <ClipLoader />
+      </div>
+    );
   }
   if (isError) {
     console.log("Error fetching projects:", error);
@@ -75,7 +80,9 @@ export default function ProjectList() {
     <div>
       <div className="flex bg-[#e5e5e5] flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
         {data?.length == 0 ? (
-          <h1>no bolges added</h1>
+          <div className="col-start-2 lg:col-span-4">
+            <h1 className=" text-3xl">No Projects Added</h1>
+          </div>
         ) : (
           data.map((projectItem) => (
             <div
@@ -86,7 +93,9 @@ export default function ProjectList() {
                 <div className="flex gap-2 break-words w-full ">
                   {" "}
                   <span className="font-bold">ClientName:</span>{" "}
-                  <span className="uppercase break-words w-full">{projectItem?.clientName}</span>{" "}
+                  <span className="uppercase break-words w-full">
+                    {projectItem?.clientName}
+                  </span>{" "}
                 </div>
                 <div className="flex gap-2 break-words w-full">
                   {" "}
@@ -101,7 +110,6 @@ export default function ProjectList() {
                 <div className="flex items-center bg-[#c1ff72] w-fit">
                   <FaEdit size={30} onClick={() => handleEdit(projectItem)} />
                   <FaTrash
-                    
                     size={30}
                     onClick={() => deleteProjects.mutate(projectItem._id)}
                   />

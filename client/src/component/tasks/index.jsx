@@ -10,16 +10,17 @@ import { FaTrash } from "react-icons/fa";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
+import { ClipLoader } from "react-spinners";
 
 const API_URL = process.env.REACT_APP_API_URL;
 export default function Tasks() {
   const query = useQueryClient();
-  
+
   const { values, handleChange, resetForm } = useFrom({ task: "" });
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
     queryKey: ["tasks"],
-   
+
     queryFn: async () => {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -40,7 +41,6 @@ export default function Tasks() {
     onError: (error) => {
       console.log(error);
     },
-    
   });
   const addTasks = useMutation({
     mutationFn: async () => {
@@ -125,9 +125,7 @@ export default function Tasks() {
       console.error(error.message);
     },
   });
-  if (isLoading) {
-    return <h1>Please wait Loadingg</h1>;
-  }
+
 
   return (
     <div className="flex flex-col gap-4 text-center ">
@@ -148,40 +146,44 @@ export default function Tasks() {
           {addTasks.isPending ? "Adding..." : "Add"}
         </button>
       </form>
-      <div className=" flex flex-col gap-2 p-3">
-        {data?.length == 0 ? (
-          <h1>no taks added</h1>
-        ) : (
-          data.map((taskItem) => (
-            <div
-              key={taskItem._id}
-              className={`rounded-md bg-gray text-center   flex items-center justify-between gap-2 p-3 border-b-[2px] border-[black] ${
-                taskItem.completed ? "bg-neonGreen line-through" : ""
-              }`}
-            >
-              <h1>{taskItem.task}</h1>
-              <div className="flex gap-2">
-                <button
-                  className="border border-green-500 p-1"
-                  onClick={() => completeTask.mutate(taskItem)}
-                >
-                  {taskItem.completed ? (
-                    <MdCheckBox />
-                  ) : (
-                    <MdCheckBoxOutlineBlank />
-                  )}
-                </button>
-                <button
-                  className="border border-red-500 p-1"
-                  onClick={() => deleteTask.mutate(taskItem._id)}
-                >
-                  <FaTrash className="text-red-500" />
-                </button>
+      {isLoading ? (
+        <div className="flex justify-center"><ClipLoader/></div>
+      ) : (
+        <div className=" flex flex-col gap-2 p-3">
+          {data?.length == 0 ? (
+            <h1 className="text-3xl">No Tasks Added</h1>
+          ) : (
+            data.map((taskItem) => (
+              <div
+                key={taskItem._id}
+                className={`rounded-md bg-gray text-center   flex items-center justify-between gap-2 p-3 border-b-[2px] border-[black] ${
+                  taskItem.completed ? "bg-neonGreen line-through" : ""
+                }`}
+              >
+                <h1>{taskItem.task}</h1>
+                <div className="flex gap-2">
+                  <button
+                    className="border border-green-500 p-1"
+                    onClick={() => completeTask.mutate(taskItem)}
+                  >
+                    {taskItem.completed ? (
+                      <MdCheckBox />
+                    ) : (
+                      <MdCheckBoxOutlineBlank />
+                    )}
+                  </button>
+                  <button
+                    className="border border-red-500 p-1"
+                    onClick={() => deleteTask.mutate(taskItem._id)}
+                  >
+                    <FaTrash className="text-red-500" />
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
-        )}
-      </div>
+            ))
+          )}
+        </div>
+      )}
     </div>
   );
 }

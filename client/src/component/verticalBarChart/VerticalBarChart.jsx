@@ -14,6 +14,7 @@ import {
 import { getAuth } from "firebase/auth";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { BarLoader } from "react-spinners";
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const API_URL = process.env.REACT_APP_API_URL;
 const VerticalBarChart = () => {
@@ -24,7 +25,7 @@ const VerticalBarChart = () => {
       {
         label: "workingHours",
         data: [0, 0, 0, 0, 0, 0, 0], // y-axis data points
-        backgroundColor: "hsl(210, 100%, 65%)", //bar color
+        backgroundColor: "#c1ff72", //bar color
         borderRadius: 5, //Rounded corners for bars
       },
     ],
@@ -99,27 +100,28 @@ const VerticalBarChart = () => {
       y: {
         beginAtZero: true,
         grid: {
-          color: "#ffffff", // light white grid
-          lineWidth: 1,
+          color: "black", // light white grid
+          lineWidth: 2,
         },
         ticks: {
-          color: "#ffffff", // y-axis label color
+          color: "black", // y-axis label color
         },
       },
       x: {
         grid: {
-          color: "#ffffff", // light white grid on x-axis
+          color: "black", // light white grid on x-axis
+          lineWidth:2
         },
         ticks: {
-          color: "#ffffff", // x-axis label color
+          color: "black", // x-axis label color
         },
       },
     },
   };
-  if(isLoading)return  <div className="text-white">Loading...</div>;
+  if(isLoading)return  <div className="flex h-screen items-center justify-center"><BarLoader/></div>;
   return (
-    <div className="h-screen flex flex-col justify-center bg-[rgba(5,7,10)]">
-      <h2>Daily working data</h2>
+    <div className="p-2 h-screen flex flex-col justify-center bg-white md:max-w-[768px] mx-auto">
+      <h2 className="w-fit p-1 bg-black text-neonGreen text-3xl font-bold">Daily working data</h2>
       <Bar data={chartData} options={options} />
     </div>
   );

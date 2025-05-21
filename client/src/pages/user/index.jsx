@@ -14,8 +14,10 @@ import { Link } from "react-router-dom";
 import { auth, db } from "../../component/Firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 export default function User() {
   const [userDetails, setUserDetails] = useState(null);
+  const [loading,setLoading]=useState(false)
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
@@ -24,16 +26,20 @@ export default function User() {
       }
       console.log(user);
       try {
+        setLoading(true)
         const docRef = doc(db, "Users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
+          setLoading(false)
           setUserDetails(docSnap.data());
           console.log(docSnap.data());
         } else {
           console.log("User is not Logged in");
+          setLoading(false)
         }
       } catch (e) {
         console.error("Error fetching user data:", e);
+        setLoading(false)
       }
     });
   };
@@ -51,7 +57,7 @@ export default function User() {
         {/* User Info */}
         <div className="flex items-center gap-2 text-sm text-gray-700 font-medium">
           <FaUser className="text-[#C1FF72]" />
-          <span>{userDetails?.name}</span>
+          <span>{loading ? <ClipLoader size={10}/>: userDetails?.name}</span>
         </div>
       </div>
       <div className="gird place-content-center h-screen w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">

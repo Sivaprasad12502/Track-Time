@@ -3,10 +3,11 @@ import TimeComponent from "../../component/timer";
 
 export default function Perfo() {
   return (
-    <div
-      className="flex items-center justify-center h-screen bg-[rgba(5,7,10)]"
-    >
-      <TimeComponent />
+    <div>
+     
+      <div className="flex items-center justify-center h-screen bg-gray">
+        <TimeComponent />
+      </div>
     </div>
   );
 }

@@ -33,7 +33,7 @@ export default function Sidenav() {
             </li>
 
             <li className="flex items-center gap-2">
-              <button onClick={handleLogout}>
+              <button onClick={handleLogout} className="flex items-center hover:text-[red]">
                 <FiLogOut />
                 Logout
               </button>
