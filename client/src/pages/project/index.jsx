@@ -5,8 +5,8 @@ import ProjectList from "../../component/projectList";
 
 export default function Projects() {
   return (
-    <div className="flex flex-col gap-1 bg-[#e5e5e5] h-screen">
-      <div className="flex justify-end w-full  p-2 text-white font-normal ">
+    <div className="flex flex-col gap-1 bg-[#e5e5e5]  h-screen">
+      <div className="drop-shadow-shadowBox flex justify-end w-full fixed p-2 z-[100] text-white font-normal">
         <Link
           className="flex items-center rounded-md  bg-[black] p-2 w-fit"
           to={"/projects/AddProjects"}
@@ -16,7 +16,7 @@ export default function Projects() {
           New
         </Link>
       </div>
-      <div className="">
+      <div className="h-full mt-[4rem]">
         <ProjectList />
       </div>
     </div>

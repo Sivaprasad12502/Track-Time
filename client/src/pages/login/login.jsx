@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../component/Firebase/firebase";
 import { toast } from "react-toastify";
 import SignWithGoogle from "../../component/signInWithGoogle/signInWithGoogle";
+import { BarLoader } from "react-spinners";
 
 export default function Login() {
   const { values, handleChange, resetForm } = useFrom({
@@ -36,7 +37,7 @@ export default function Login() {
     }
   };
   if (loading) {
-    return <h1>loading...please wait!!!</h1>;
+    return <div className="flex h-screen items-center justify-center"><BarLoader/></div>;
   }
   return (
     <div className={classes.wrapper}>

@@ -8,6 +8,7 @@ import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import axios from "axios";
 import SignWithGoogle from "../../component/signInWithGoogle/signInWithGoogle";
+import { BarLoader } from "react-spinners";
 const API_URL = process.env.REACT_APP_API_URL;
 export default function Register() {
   const { values, handleChange, resetForm } = useFrom({
@@ -57,7 +58,7 @@ export default function Register() {
     // resetForm();
   };
   if (loading) {
-    return <h1>Loading.....</h1>;
+    return <div className="h-screen flex items-center justify-center"><BarLoader/></div>;
   }
   return (
     <div className={classes.wrapper}>

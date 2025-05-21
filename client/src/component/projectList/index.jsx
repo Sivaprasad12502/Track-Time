@@ -61,7 +61,7 @@ export default function ProjectList() {
 
   if (isLoading) {
     return (
-      <div className=" flex  items-center justify-center bg-gray">
+      <div className=" flex h-full  items-center justify-center bg-gray">
         <ClipLoader />
       </div>
     );
@@ -77,14 +77,14 @@ export default function ProjectList() {
     navigate("/projects/AddProjects", { state: { getcurrentProject } });
   }
   return (
-    <div>
-      <div className="flex bg-[#e5e5e5] flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
+    <div className="h-full">
+      <div className="items-center justify-center flex bg-[#e5e5e5] flex-col gap-4 p-2 text-center sm:grid grid-cols-2 sm:p-4 md:grid-cols-3 md:p-6 lg:grid-cols-4 lg:p-8">
         {data?.length == 0 ? (
-          <div className="col-start-2 lg:col-span-4">
+          <div className="col-start-2 lg:col-span-4 ">
             <h1 className=" text-3xl">No Projects Added</h1>
           </div>
         ) : (
-          data.map((projectItem) => (
+          data?.map((projectItem) => (
             <div
               key={projectItem._id}
               className="flex flex-col drop-shadow-shadowBox   gap-1 p-4  text-[black] bg-[#fff] rounded-[20px] transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black] border"

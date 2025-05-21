@@ -47,7 +47,7 @@ export default function User() {
     fetchUserData();
   }, []);
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col h-screen ">
       <div className="flex justify-between items-center bg-white shadow-md px-6 py-3 rounded-b-md border-b-[3px] border-[black]">
         {/* Sidenav or logo area */}
         <div>
@@ -60,7 +60,7 @@ export default function User() {
           <span>{loading ? <ClipLoader size={10}/>: userDetails?.name}</span>
         </div>
       </div>
-      <div className="gird place-content-center h-screen w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">
+      <div className="h-full gird place-content-center w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">
         <div className="grid grid-cols-2 place-items-center gap-3 h-1/4 sm:h-1/2">
           <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[black] bg-[#E5E5E5] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black]">
             <div className="flex items-center rounded-sm bg-[#C1FF72]">

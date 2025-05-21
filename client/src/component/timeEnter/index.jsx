@@ -3,6 +3,7 @@ import useFrom from "../../hooks/useFrom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getAuth } from "firebase/auth";
 import axios from "axios";
+import { toast } from "react-toastify";
 const API_URL = process.env.REACT_APP_API_URL;
 export default function TimeEnter() {
   const queryClient = useQueryClient();
@@ -45,14 +46,20 @@ export default function TimeEnter() {
     const { startTime, endTime } = values;
     // Convert to minutes
     if (!startTime || !endTime) {
-      return alert("Please enter both start and end time.");
+      return toast.error("Please enter both start and end time.",{
+        position:'bottom-center'
+      });
     }
     if (startTime === endTime) {
-      return alert("start and end time cannot be the same");
+      return toast.error("start and end time cannot be the same",{
+        position:'bottom-center'
+      });
     }
     const newSTartTimeMin = timeToMinute(startTime);
     if (newSTartTimeMin <= latestEndTimeMin) {
-      alert("start time must be after last entry's end time");
+      toast.error("start time must be after last entry's end time",{
+        position:'bottom-center'
+      });
       return;
     }
     const [startH, startM] = startTime.split(":").map(Number);
@@ -61,8 +68,10 @@ export default function TimeEnter() {
     const end = endH * 60 + endM;
     let workedMinutes = end - start;
     if (workedMinutes <= 0 && end <= start) {
-      alert(
-        "End time must be after start time, or it should wrap into next day explicitly."
+      toast.error(
+        "End time must be after start time, or it should wrap into next day explicitly.",{
+          position:'bottom-center'
+        }
       );
       return;
     }
@@ -95,12 +104,16 @@ export default function TimeEnter() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["workEntries"] });
-      console.log("sussessfully added");
+      toast.success("sussessfully added",{
+        position:"top-center"
+      });
+      
     },
     onError: (error) => {
       console.error(error, "error in worktime adding");
     },
   });
+
   return (
     <div className="flex flex-col gap-2 p-2 ">
       <h1 className="font-bold text-center">Enter Your Work time</h1>
