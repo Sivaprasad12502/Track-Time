@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import axios from "axios";
 import { getAuth } from "firebase/auth";
-import React from "react";
+import React, { useState } from "react";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BarLoader, ClipLoader } from "react-spinners";
@@ -15,6 +15,7 @@ console.log("API_URL is:", API_URL);
 export default function ProjectList() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const [delteProjectId, setDeleteProjecId] = useState(null);
   const fetchProjects = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
@@ -44,6 +45,7 @@ export default function ProjectList() {
       const token = await user.getIdToken();
 
       const url = `${API_URL}/projects/delete/${projectId}`;
+      setDeleteProjecId(projectId);
       console.log("Deleting:", url);
       await axios.delete(url, {
         headers: {
@@ -53,8 +55,10 @@ export default function ProjectList() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      setDeleteProjecId(null);
     },
     onError: (error) => {
+      setDeleteProjecId(null);
       console.error("error delelting project", error);
     },
   });
@@ -109,10 +113,14 @@ export default function ProjectList() {
 
                 <div className="flex items-center bg-[#c1ff72] w-fit">
                   <FaEdit size={30} onClick={() => handleEdit(projectItem)} />
-                  <FaTrash
-                    size={30}
-                    onClick={() => deleteProjects.mutate(projectItem._id)}
-                  />
+                  {delteProjectId === projectItem._id ? (
+                    <ClipLoader color="red" size={20}/>
+                  ) : (
+                    <FaTrash
+                      size={30}
+                      onClick={() => deleteProjects.mutate(projectItem._id)}
+                    />
+                  )}
                 </div>
               </div>
             </div>

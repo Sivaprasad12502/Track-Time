@@ -15,6 +15,7 @@ import { getAuth } from "firebase/auth";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { BarLoader } from "react-spinners";
+import BackButton from "../BackSwitch";
 ChartJs.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 const API_URL = process.env.REACT_APP_API_URL;
 const VerticalBarChart = () => {
@@ -121,6 +122,7 @@ const VerticalBarChart = () => {
   if(isLoading)return  <div className="flex h-screen items-center justify-center"><BarLoader/></div>;
   return (
     <div className="p-2 h-screen flex flex-col justify-center bg-white md:max-w-[768px] mx-auto">
+      <BackButton/>
       <h2 className="w-fit p-1 bg-black text-neonGreen text-3xl font-bold">Daily working data</h2>
       <Bar data={chartData} options={options} />
     </div>

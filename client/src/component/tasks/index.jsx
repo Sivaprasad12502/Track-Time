@@ -15,7 +15,7 @@ import { ClipLoader } from "react-spinners";
 const API_URL = process.env.REACT_APP_API_URL;
 export default function Tasks() {
   const query = useQueryClient();
-
+  const [deleteId, setDeleteId] = useState(null);
   const { values, handleChange, resetForm } = useFrom({ task: "" });
 
   const { data, error, isLoading, isError, isSuccess } = useQuery({
@@ -103,12 +103,14 @@ export default function Tasks() {
   });
   const deleteTask = useMutation({
     mutationFn: async (taskId) => {
+      setDeleteId(taskId);
       const auth = getAuth();
       const user = auth.currentUser;
       if (!user) {
         throw new Error("user is not logged in");
       }
       const token = await user.getIdToken();
+
       await axios.delete(`${API_URL}/activities/delete/${taskId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -120,12 +122,13 @@ export default function Tasks() {
         queryKey: ["tasks"],
       });
       console.log("Task deleted");
+      setDeleteId(null);
     },
     onError: (error) => {
+      setDeleteId(null);
       console.error(error.message);
     },
   });
-
 
   return (
     <div className="flex flex-col gap-4 text-center ">
@@ -147,7 +150,9 @@ export default function Tasks() {
         </button>
       </form>
       {isLoading ? (
-        <div className="flex justify-center"><ClipLoader/></div>
+        <div className="flex justify-center">
+          <ClipLoader />
+        </div>
       ) : (
         <div className=" flex flex-col gap-2 p-3">
           {data?.length == 0 ? (
@@ -173,10 +178,14 @@ export default function Tasks() {
                     )}
                   </button>
                   <button
-                    className="border border-red-500 p-1"
+                    className="border border-red-500 p-1 flex items-center justify-center"
                     onClick={() => deleteTask.mutate(taskItem._id)}
                   >
-                    <FaTrash className="text-red-500" />
+                    {deleteId === taskItem._id ? (
+                      <ClipLoader color="red" size={5}/>
+                    ) : (
+                      <FaTrash className="text-red-500" />
+                    )}
                   </button>
                 </div>
               </div>
