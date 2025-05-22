@@ -13,14 +13,14 @@ export default function SignWithGoogle() {
       console.log(result)
       const user=result.user
       if(result.user){
-        //.Store in FireStore
+        
         await setDoc(doc(db,"Users",user.uid),{
           email:user.email,
           name:user.displayName
         })
-        //.Get Firebase Id token
+        
         const idToken=await user.getIdToken()
-        // store in MongoDB via backend
+        
         await axios.post(`${APIURL}/register`,{
           token:idToken,
           name:user.displayName

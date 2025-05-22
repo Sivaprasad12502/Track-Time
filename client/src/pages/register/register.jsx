@@ -26,7 +26,7 @@ export default function Register() {
         values.email,
         values.password
       );
-      // const user=auth.currentUser
+
       const user = userCred.user;
       console.log(user);
       if (user) {
@@ -49,7 +49,7 @@ export default function Register() {
 
       window.location.href = "/user";
     } catch (e) {
-      setLoading(false)
+      setLoading(false);
       console.log(e.message);
       toast.error(e.message, {
         position: "bottom-center",
@@ -58,16 +58,18 @@ export default function Register() {
     // resetForm();
   };
   if (loading) {
-    return <div className="h-screen flex items-center justify-center"><BarLoader/></div>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <BarLoader />
+      </div>
+    );
   }
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperContainer}>
         <h3>Create Your Account</h3>
         <form onSubmit={handleRegister}>
-          <label htmlFor="">
-            Name
-          </label>
+          <label htmlFor="">Name</label>
           <input
             type="text"
             placeholder="Enter name"
@@ -75,9 +77,7 @@ export default function Register() {
             name="name"
             value={values.name}
           />
-          <label htmlFor="">
-            Email
-          </label>
+          <label htmlFor="">Email</label>
           <input
             type="email"
             placeholder="Enter Email"
@@ -85,9 +85,7 @@ export default function Register() {
             value={values.email}
             onChange={handleChange}
           />
-          <label htmlFor="">
-            password
-          </label>
+          <label htmlFor="">password</label>
           <input
             type="password"
             placeholder="Enter password"

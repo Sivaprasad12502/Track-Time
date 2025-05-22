@@ -37,16 +37,18 @@ export default function Login() {
     }
   };
   if (loading) {
-    return <div className="flex h-screen items-center justify-center"><BarLoader/></div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <BarLoader />
+      </div>
+    );
   }
   return (
     <div className={classes.wrapper}>
       <div className={classes.wrapperContainer}>
         <h3>Login To Your Account</h3>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="">
-            Name
-          </label>
+          <label htmlFor="">Name</label>
           <input
             type="text"
             placeholder="Enter name"
@@ -54,9 +56,7 @@ export default function Login() {
             name="name"
             value={values.name}
           />
-          <label htmlFor="">
-            Email
-          </label>
+          <label htmlFor="">Email</label>
           <input
             type="email"
             placeholder="Enter Email"
@@ -64,9 +64,7 @@ export default function Login() {
             value={values.email}
             onChange={handleChange}
           />
-          <label htmlFor="">
-            password
-          </label>
+          <label htmlFor="">password</label>
           <input
             type="password"
             placeholder="Enter password"
@@ -78,9 +76,6 @@ export default function Login() {
           <SignWithGoogle />
         </form>
       </div>
-      {/* <div>
-        <Link to={"/user"}>click</Link>
-      </div> */}
     </div>
   );
 }

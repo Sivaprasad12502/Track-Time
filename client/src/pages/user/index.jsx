@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 import { ClipLoader } from "react-spinners";
 export default function User() {
   const [userDetails, setUserDetails] = useState(null);
-  const [loading,setLoading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const fetchUserData = async () => {
     auth.onAuthStateChanged(async (user) => {
       if (!user) {
@@ -26,20 +26,20 @@ export default function User() {
       }
       console.log(user);
       try {
-        setLoading(true)
+        setLoading(true);
         const docRef = doc(db, "Users", user.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setLoading(false)
+          setLoading(false);
           setUserDetails(docSnap.data());
           console.log(docSnap.data());
         } else {
           console.log("User is not Logged in");
-          setLoading(false)
+          setLoading(false);
         }
       } catch (e) {
         console.error("Error fetching user data:", e);
-        setLoading(false)
+        setLoading(false);
       }
     });
   };
@@ -49,15 +49,13 @@ export default function User() {
   return (
     <div className="flex flex-col h-screen ">
       <div className="flex justify-between items-center bg-white shadow-md px-6 py-3 rounded-b-md border-b-[3px] border-[black]">
-        {/* Sidenav or logo area */}
         <div>
           <Sidenav />
         </div>
 
-        {/* User Info */}
         <div className="flex items-center gap-2 text-sm text-gray-700 font-medium">
           <FaUser className="text-[#C1FF72]" />
-          <span>{loading ? <ClipLoader size={10}/>: userDetails?.name}</span>
+          <span>{loading ? <ClipLoader size={10} /> : userDetails?.name}</span>
         </div>
       </div>
       <div className="h-full gird place-content-center w-full p-3 sm:p-6 md:p-[7rem] lg:max-w-[768px] mr-auto ml-auto">
@@ -65,7 +63,7 @@ export default function User() {
           <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[black] bg-[#E5E5E5] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full  h-full  border-b-[3px] border-[black]">
             <div className="flex items-center rounded-sm bg-[#C1FF72]">
               <FaProjectDiagram size={30} className="fill-[black] " />
-            <Link to={"/projects"}> Projects</Link>
+              <Link to={"/projects"}> Projects</Link>
             </div>
           </div>
           <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[#0b0e14] bg-[#C1FF72] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[-3px] w-full h-full border-b-[3px] border-[black]">
@@ -83,7 +81,7 @@ export default function User() {
           <div className="drop-shadow-[0_4px_6px_rgba(0,0,0,0.5)] flex justify-center items-center gap-1 p-4  text-[black] bg-[#E5E5E5] rounded-md transition-transform duration-300 ease-linear  hover:translate-y-[3px] w-full  h-full   border-b-[3px] border-[black]">
             <div className="flex items-center bg-[#C1FF72] rounded-sm">
               <GiMuscleUp size={30} className="fill-[black]" />{" "}
-            <Link to={"/performance"}>Performance</Link>
+              <Link to={"/performance"}>Performance</Link>
             </div>
           </div>
         </div>

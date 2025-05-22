@@ -20,29 +20,28 @@ import { ClipLoader } from "react-spinners";
 function App() {
   const [user, setUser] = useState();
   const location = useLocation();
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    
     auth.onAuthStateChanged((user) => {
       setUser(user);
-      setLoading(false)
+      setLoading(false);
     });
   }, []);
-  if(loading) return <div className="flex items-center justify-center h-screen"><ClipLoader/></div>
-  // Hide Header on login and register pages
+  if (loading)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <ClipLoader />
+      </div>
+    );
 
-  // const hideHeader =
-  // location.pathname === "/login" || location.pathname === "/register";
   return (
     <div className="App">
-      {/* {!hideHeader && <Header />} */}
-
       <Routes>
         <Route path="/" element={user ? <Navigate to={"/user"} /> : <Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route element={<ProtectedRoute user={user}/>}>
+        <Route element={<ProtectedRoute user={user} />}>
           <Route path="/user" element={<User />} />
           <Route path="/timesheet" element={<TimSheet />} />
           <Route path="/performance" element={<Perfo />} />

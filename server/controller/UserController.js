@@ -8,7 +8,7 @@ const addUser = async (req, res) => {
     const decoded = await admin.auth().verifyIdToken(token);
     const { uid, email } = decoded;
 
-    //Store in MongoDB
+   
     const savedUser = await User.findOneAndUpdate(
       { uid },
       { name, email, uid },

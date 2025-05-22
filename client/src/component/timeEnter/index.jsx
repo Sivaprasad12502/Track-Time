@@ -39,12 +39,12 @@ export default function TimeEnter() {
     ? Math.max(...todayEntries.map((entry) => timeToMinute(entry.endTime)))
     : 0;
 
-  console.log("latestEndTimeMin:", latestEndTimeMin);
+
 
   function handleSubmit(e) {
     e.preventDefault();
     const { startTime, endTime } = values;
-    // Convert to minutes
+   
     if (!startTime || !endTime) {
       return toast.error("Please enter both start and end time.",{
         position:'bottom-center'
@@ -84,7 +84,7 @@ export default function TimeEnter() {
       hoursWorked: Number(workdedHours),
       date: today,
     };
-    console.log("Worded Data:", workdata);
+   
     addWorkEntry.mutate(workdata);
     resetForm();
   }
