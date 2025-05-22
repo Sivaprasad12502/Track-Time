@@ -78,16 +78,16 @@ const VerticalBarChart = () => {
       weekData["Sat"],
       weekData["Sun"],
     ];
-    setChartData((prev)=>({
+    setChartData((prev) => ({
       ...prev,
-      datasets:[
+      datasets: [
         {
           ...prev.datasets[0],
-          data:updatedData
-        }
-      ]
-    }))
-  },[data]);
+          data: updatedData,
+        },
+      ],
+    }));
+  }, [data]);
   //options for the chart
 
   const options = {
@@ -111,7 +111,7 @@ const VerticalBarChart = () => {
       x: {
         grid: {
           color: "black", // light white grid on x-axis
-          lineWidth:2
+          lineWidth: 2,
         },
         ticks: {
           color: "black", // x-axis label color
@@ -119,11 +119,28 @@ const VerticalBarChart = () => {
       },
     },
   };
-  if(isLoading)return  <div className="flex h-screen items-center justify-center"><BarLoader/></div>;
+  if (isLoading)
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <BarLoader />
+      </div>
+    );
+  if (!data || data.length == 0) {
+    return (
+      <div className="flex flex-col h-screen items-center justify-center">
+        <BackButton/>
+        <h2 className="text-2xl font-bold text-[gray]">
+          No Work Data added
+        </h2>
+      </div>
+    );
+  }
   return (
     <div className="p-2 h-screen flex flex-col justify-center bg-white md:max-w-[768px] mx-auto">
-      <BackButton/>
-      <h2 className="w-fit p-1 bg-black text-neonGreen text-3xl font-bold">Daily working data</h2>
+      <BackButton />
+      <h2 className="w-fit p-1 bg-black text-neonGreen text-3xl font-bold">
+        Daily working data
+      </h2>
       <Bar data={chartData} options={options} />
     </div>
   );
